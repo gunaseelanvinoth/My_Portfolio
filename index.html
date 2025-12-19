@@ -8,9 +8,10 @@
     <title>Gunaseelan</title>
     <link rel="icon" href="https://i.ibb.co/zRsTj3p/Frame-1-37.png">
 
-
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" class="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Backup Font Awesome CDN -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.1/css/all.css" crossorigin="anonymous" onerror="this.onerror=null;this.href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css';" />
 </head> 
 <style>
     
@@ -22,10 +23,13 @@
   box-sizing:border-box;
   scroll-behavior:smooth;
 }
+html {
+  scroll-padding-top: 80px;
+}
 a{
   text-decoration: none ;
   color:#fff;
-  transition:0.3s; 
+  transition:0.3s;
 }
 ul{
   list-style:none;
@@ -38,6 +42,34 @@ body{
   font-size:16px;
   line-height:24px; 
   background-color:#202020;
+  position: relative;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(254, 215, 0, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(254, 215, 0, 0.02) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+  animation: backgroundMove 20s ease-in-out infinite;
+}
+@keyframes backgroundMove {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-20px, -20px);
+  }
+}
+body > * {
+  position: relative;
+  z-index: 1;
 }
 .container{
   width: 1170px;
@@ -109,12 +141,38 @@ body{
 .header ul li a{
   text-transform: capitalize;
   display: block;
+  position: relative;
+  transition: all 0.3s ease;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+.header ul li a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: #fed700;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
 }
 .header ul li a.active{
   color: #fed700;
-} 
+}
+.header ul li a.active::after {
+  width: 80%;
+}
 .header ul li a:hover{
   color:#fed700;
+  transform: translateY(-2px);
+}
+.header ul li a:hover::after {
+  width: 80%;
+}
+.header ul li a:active {
+  transform: translateY(0) scale(0.95);
+  color: #fed700;
 }
 .header .menu_icon{
   color:#fff;
@@ -130,7 +188,37 @@ body{
    display:flex;
    justify-content: space-around;
    align-items: center;
-   padding-top: 5rem; 
+   padding-top: 5rem;
+   min-height: 90vh;
+   position: relative;
+   overflow: hidden;
+}
+.FirstElement::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(254, 215, 0, 0.1), transparent 70%);
+  border-radius: 50%;
+  animation: pulseGlow 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+@keyframes pulseGlow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+}
+.FirstElement > * {
+  position: relative;
+  z-index: 1;
 } 
 
 .FirstElement.adjusted-padding {
@@ -138,46 +226,206 @@ body{
 }
 
 .FirstElement .profile-photo{
-  width: 300px;
-  height:  300px;
+  width: 320px;
+  height: 320px;
   border-radius: 50%;
   overflow: hidden;
-  border: 15px solid #444444;
-  box-shadow: 5px 7px 25px rgba(0, 0, 0, 0.5)
+  border: 4px solid rgba(254, 215, 0, 0.3);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(254, 215, 0, 0.2);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  background: linear-gradient(135deg, rgba(254, 215, 0, 0.1), rgba(255, 255, 255, 0.05));
+  animation: profileFloat 6s ease-in-out infinite;
 }
-profile-photo .img{
-  height: 100%;
+@keyframes profileFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+.FirstElement .profile-photo::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  padding: 4px;
+  background: linear-gradient(45deg, #fed700, #ffed4e, #fed700);
+  background-size: 200% 200%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: rotateBorder 3s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: -1;
+}
+@keyframes rotateBorder {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+.FirstElement .profile-photo:hover::before {
+  opacity: 1;
+}
+.FirstElement .profile-photo img {
   width: 100%;
-  transition: 0.5s;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: brightness(0.95) contrast(1.05);
+  transform: scale(1.1);
 }
-.FirstElement .profile-photo img:hover{
-  transform: scale(1.2);
+.FirstElement .profile-photo:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(254, 215, 0, 0.4), 0 0 40px rgba(254, 215, 0, 0.3);
+  border-color: rgba(254, 215, 0, 0.6);
+}
+.FirstElement .profile-photo:hover img {
+  transform: scale(1.05);
+  filter: brightness(1.05) contrast(1.1);
+}
+.FirstElement .profile-photo:active {
+  transform: translateY(-4px) scale(0.98);
+  box-shadow: 0 15px 40px rgba(254, 215, 0, 0.5);
 }
 .profile-text{
   max-width: 750px;
   display: flex;
   flex-direction: column;
+  animation: fadeInRight 1s ease-out;
+  position: relative;
+  z-index: 1;
 }
 .profile-text h5{
   color: #e5e5e5;
   font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  opacity: 0;
+  animation: fadeInDown 0.8s ease-out 0.2s both;
+}
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 .profile-text h1{
   color: #fed700;
-  font-size: 3rem; 
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #fed700, #ffed4e, #fed700);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 3s ease infinite, fadeInUp 1s ease-out 0.4s both;
+  font-weight: 800;
+  line-height: 1.2;
+}
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 .profile-text p{
-  color:#e5e5e5;
+  color: #e5e5e5;
+  line-height: 1.8;
+  font-size: 16px;
+  opacity: 0;
+  animation: fadeInUp 1s ease-out 0.6s both;
+  margin-bottom: 10px;
+}
+.profile-text .social {
+  display: flex !important;
+  gap: 15px;
+  margin-top: 20px;
+  opacity: 1 !important;
+  visibility: visible !important;
+  animation: fadeInUp 1s ease-out 1s both;
+}
+.profile-text .social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: visible;
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .profile-text .social i{
-  color : #e5e5e5;
-  font-size: 18px;
-  margin-right: 10px;
-  transition: 0.5s;
+  color: #e5e5e5 !important;
+  font-size: 18px !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  line-height: 45px;
+  text-align: center;
 }
-.profile-text .social i:hover{
-  color:#fed700;
-  transform: rotate(360deg);
+.profile-text .social a::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(254, 215, 0, 0.2), rgba(255, 255, 255, 0.1));
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 1;
+}
+.profile-text .social a:hover::before {
+  opacity: 1;
+}
+.profile-text .social a:hover {
+  transform: translateY(-3px);
+  background: rgba(254, 215, 0, 0.15);
+  border-color: rgba(254, 215, 0, 0.5);
+  box-shadow: 0 8px 25px rgba(254, 215, 0, 0.4), 0 0 20px rgba(254, 215, 0, 0.2);
+}
+.profile-text .social a:hover i {
+  color: #fed700 !important;
+  transform: scale(1.15);
+}
+.profile-text .social a:active {
+  transform: translateY(-1px) scale(0.95);
+  box-shadow: 0 4px 15px rgba(254, 215, 0, 0.5);
 }
 
 
@@ -186,47 +434,182 @@ profile-photo .img{
 
 .about-area{
   padding-top: 130px;
+  padding-bottom: 80px;
   background-color: #202020;
+  position: relative;
+  overflow: hidden;
+}
+.about-area::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 50%, rgba(254, 215, 0, 0.03), transparent 70%);
+  animation: backgroundPulse 8s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes backgroundPulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
 }
 .about{
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom:50px;
+  align-items: flex-start;
+  gap: 40px;
+  margin-bottom: 50px;
+  position: relative;
+  z-index: 1;
 }
 .about-content{
-  flex-basis: 60%;
+  flex: 1;
+  min-width: 0;
+  padding-right: 20px;
+  animation: fadeInLeft 1s ease-out;
+}
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 .about-content h4{
   color: #fed700;
-  font-size: 40px;
-  line-height: 70px;
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  line-height: 1.2;
   text-transform: capitalize;
+  margin-bottom: 30px;
+  position: relative;
+  display: inline-block;
+}
+.about-content h4::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #fed700, transparent);
+  border-radius: 2px;
+  animation: expandLine 1s ease-out 0.5s both;
+}
+@keyframes expandLine {
+  from {
+    width: 0;
+  }
+  to {
+    width: 60px;
+  }
 }
 .about-content ul {
-  color:#fff;
+  color: #fff;
   text-align: justify;
+  line-height: 1.8;
+  padding-left: 20px;
 }
 
 .about-content ul li {
   list-style-type: disc;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  padding-left: 10px;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+.about-content ul li:nth-child(1) {
+  animation-delay: 0.2s;
+}
+.about-content ul li:nth-child(2) {
+  animation-delay: 0.4s;
+}
+.about-content ul li:nth-child(3) {
+  animation-delay: 0.6s;
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .about-skills{
-  flex-basis: 35%;
+  flex: 0 0 350px;
+  min-width: 300px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 30px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  animation: fadeInRight 1s ease-out;
+  transition: all 0.3s ease;
+}
+.about-skills:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(254, 215, 0, 0.2);
+  border-color: rgba(254, 215, 0, 0.3);
+}
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.about-skills ul {
+  list-style: none;
+  padding: 0;
 }
 .about-skills ul li{
-  border-bottom: 1px dashed #ddd;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+  padding: 15px 0;
+  margin-bottom: 0;
   color: #fff;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  position: relative;
+  padding-left: 25px;
+}
+.about-skills ul li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: #fed700;
   font-size: 18px;
+  transition: transform 0.3s ease;
+}
+.about-skills ul li:hover {
+  color: #fed700;
+  padding-left: 30px;
+  transform: translateX(5px);
+}
+.about-skills ul li:hover::before {
+  transform: translateX(5px);
 }
 .about-skills ul li:last-child{
   border-bottom: 0;
   padding-bottom: 0;
-  margin-bottom: 0;
 }
 
 
@@ -234,6 +617,8 @@ profile-photo .img{
 
 .btn-group{
   margin: 45px 0;
+  opacity: 0;
+  animation: fadeInUp 1s ease-out 0.8s both;
 }
 .btn-group .btn{
   border-color: #d5d5d5;
@@ -245,19 +630,85 @@ profile-photo .img{
   border-radius: 30px;
   border: 2px solid #e5e5e5;
   box-shadow: 0 10px 10px -8px rgb(0 0 0 / 78%);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+}
+.btn-group .btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(254, 215, 0, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+.btn-group .btn:active::before {
+  width: 300px;
+  height: 300px;
+}
+.btn-group .btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 5px 15px rgba(254, 215, 0, 0.4);
+  border-color: #fed700;
+}
+.btn-group .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 20px rgba(254, 215, 0, 0.3);
+  border-color: #fed700;
 }
 .btn.active{
   border-color: #fed700;
+  background: linear-gradient(135deg, rgba(254, 215, 0, 0.2), rgba(254, 215, 0, 0.1));
+  box-shadow: 0 0 20px rgba(254, 215, 0, 0.4);
 }
 
 
 /*---------------------------Education & Internship---------------------------*/
 
+.education-content {
+  position: relative;
+  overflow: hidden;
+}
+.education-content::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(254, 215, 0, 0.04), transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: educationGlow 8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+@keyframes educationGlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+.education-content > * {
+  position: relative;
+  z-index: 1;
+}
 .education-content .row{
   display: flex;
   border-radius: 5px;
   height: 400px;
   margin-bottom: 250px;
+  gap: 30px;
 }
 
 .education-content .title{
@@ -281,12 +732,20 @@ profile-photo .img{
   max-width: 100%;  
 }
 .education-content .row .timeline{
-  /* background-color:#e5e5e5; */
   padding: 30px 15px;
-  border: 1px solid #e5e5e5;
-  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
   width: 100%;
   position: relative;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+.education-content .row .timeline:hover {
+  border-color: rgba(254, 215, 0, 0.4);
+  box-shadow: 0 10px 30px rgba(254, 215, 0, 0.15);
+  transform: translateY(-3px);
 }
 .education-content .row .timeline-item{
   position:relative;
@@ -303,12 +762,13 @@ profile-photo .img{
 }
 .education-content .row .timeline-item::before{
   content: "";
-  width: 1px;
+  width: 2px;
   position: absolute;
   height: 100%;
   left: 7px;
   top: 0;
-  background-color: #fed700;  
+  background: linear-gradient(180deg, #fed700, rgba(254, 215, 0, 0.3));
+  box-shadow: 0 0 10px rgba(254, 215, 0, 0.3);
 }
 .education-content .row .circle-dot{
   position: absolute;
@@ -317,7 +777,20 @@ profile-photo .img{
   height: 15px;
   width: 15px;
   border-radius: 50%;
-  background-color: #e5e5e5;
+  background-color: #fed700;
+  box-shadow: 0 0 10px rgba(254, 215, 0, 0.5);
+  animation: dotPulse 2s ease-in-out infinite;
+  z-index: 2;
+}
+@keyframes dotPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(254, 215, 0, 0.5);
+  }
+  50% {
+    transform: scale(1.2);
+    box-shadow: 0 0 20px rgba(254, 215, 0, 0.8);
+  }
 }
 .education-content .row .timeline-title  {
   font-weight: 700;
@@ -340,7 +813,26 @@ profile-photo .img{
 /*---------------------------Projects---------------------------*/
 .project-content{
   padding: 90px 0;
-  /* color:#fff;  */
+  position: relative;
+  overflow: hidden;
+}
+.project-content::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(254, 215, 0, 0.3), transparent);
+  animation: shimmerLine 3s ease-in-out infinite;
+}
+@keyframes shimmerLine {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 .project-title{
   margin-bottom: 60px;
@@ -371,7 +863,23 @@ profile-photo .img{
     padding: 25px;
     text-align: center;
     flex-basis: 32%;
-    transition: .3s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.02);
+}
+.project::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(254, 215, 0, 0.1), transparent);
+  transition: left 0.5s;
+}
+.project:hover::before {
+  left: 100%;
 }
 .project i{
   background-color: #fed700;
@@ -381,17 +889,38 @@ profile-photo .img{
   font-size: 26px;
   line-height: 60px;
   border-radius: 50%;
+  transition: all 0.3s ease;
+}
+.project:active {
+  transform: scale(0.97);
+  border-color: #fed700;
+  box-shadow: 0 0 25px rgba(254, 215, 0, 0.5);
+}
+.project:active i {
+  transform: rotate(360deg) scale(1.1);
+  box-shadow: 0 0 20px rgba(254, 215, 0, 0.8);
 }
 .project h4{
   font-size: 26px;
   text-transform: capitalize;
   margin: 20px 0;
+  transition: color 0.3s;
 }
 .project p{
   text-align: justify;
 }
 .project:hover{
   border-color: #fed700;
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(254, 215, 0, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+}
+.project:hover h4 {
+  color: #fed700;
+}
+.project:hover i {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(254, 215, 0, 0.6);
 }
 
 
@@ -401,6 +930,36 @@ profile-photo .img{
   padding: 100px 0;
   color: #fff;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.contact-content::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(254, 215, 0, 0.05), transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: contactPulse 6s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+@keyframes contactPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.3);
+    opacity: 0.8;
+  }
+}
+.contact-content > * {
+  position: relative;
+  z-index: 1;
 }
 .contact-content .contact-title h4{
   font-size: 40px;
@@ -420,6 +979,21 @@ profile-photo .img{
   padding: 15px;
   border: 0;
   margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+.contact input:focus, .contact textarea:focus {
+  outline: none;
+  border-color: #fed700;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 15px rgba(254, 215, 0, 0.2);
+  transform: translateY(-2px);
+}
+.contact input:active, .contact textarea:active {
+  transform: translateY(0);
 }
 
 .contact .submit{
@@ -428,17 +1002,58 @@ profile-photo .img{
   padding: 10px 40px;
   font-weight:bold ;
   font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  color: #333;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(254, 215, 0, 0.3);
+}
+.contact .submit::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
 }
 .contact .submit:hover{
-  transform: scale(1.1);
-  cursor: pointer;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(254, 215, 0, 0.5);
+  background: linear-gradient(135deg, #fed700, #ffed4e);
+}
+.contact .submit:active {
+  transform: translateY(-1px) scale(0.98);
+  box-shadow: 0 2px 10px rgba(254, 215, 0, 0.4);
+}
+.contact .submit:active::before {
+  width: 300px;
+  height: 300px;
 }
 #msg{
   color: #fff;
-  font-size: 20px;
-  margin-top: -8px;
-  display: block;
+  font-size: 16px;
+  margin-top: 15px;
+  display: none;
+  padding: 12px 15px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  animation: fadeInUp 0.3s ease-out;
+  min-height: 20px;
 }
+#msg span {
+  display: inline-block;
+  font-weight: 500;
+}
+
 
 
 
@@ -477,15 +1092,45 @@ profile-photo .img{
   .container{
     width: 970px;
   }
+  
+  /* Certificates Medium */
+  .cert-grid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 22px;
+  }
+  
+  /* Projects Medium */
+  .project {
+    flex-basis: 31%;
+  }
 }
 
 @media(max-width:1050px){
   .FirstElement{ 
     flex-direction: column;
     padding-top: 2rem;
+    gap: 40px;
   }
   .profile-text{
     padding: 40px 0px;
+    text-align: center;
+    align-items: center;
+  }
+  .FirstElement .profile-photo {
+    width: 280px;
+    height: 280px;
+  }
+  .about {
+    flex-direction: column;
+    gap: 30px;
+  }
+  .about-content {
+    padding-right: 0;
+  }
+  .about-skills {
+    flex: 1;
+    min-width: auto;
+    width: 100%;
   }
 }
 
@@ -495,7 +1140,43 @@ profile-photo .img{
 @media only screen and (min-width:768px) and (max-width:999px){
   .container{
     width: 750px;
-  } 
+  }
+  
+  .FirstElement {
+    gap: 30px;
+  }
+  .FirstElement .profile-photo {
+    width: 300px;
+    height: 300px;
+  }
+  .about {
+    gap: 35px;
+  }
+  .about-skills {
+    flex: 0 0 320px;
+    min-width: 300px;
+  }
+  
+  /* Certificates Tablet */
+  .cert-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 18px;
+  }
+  .certificate-card img {
+    height: 190px;
+  }
+  
+  /* Projects Tablet */
+  .project {
+    flex-basis: 48%;
+    margin-bottom: 20px;
+  }
+  
+  /* Modal Tablet */
+  .modal {
+    width: 90%;
+    max-width: 600px;
+  }
 }  
 
 
@@ -525,10 +1206,25 @@ profile-photo .img{
     flex-direction: column;
     flex-basis: 100%;
     margin-bottom: 30px;
+    gap: 30px;
+  }
+  .about-content{
+    padding-right: 0;
+    width: 100%;
   }
   .about-skills{
     width: 100%;
-    margin-top: 30px;
+    flex: 1;
+    min-width: auto;
+    margin-top: 0;
+  }
+  .FirstElement .profile-photo {
+    width: 250px;
+    height: 250px;
+  }
+  .profile-text {
+    max-width: 100%;
+    padding: 20px 0;
   }
   .education-content .row {
     flex-direction: column;
@@ -546,9 +1242,658 @@ profile-photo .img{
     flex-basis: 100%;
     margin-bottom: 30px;
   }
+  
+  /* Certificates Responsive */
+  .cert-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 15px 0;
+  }
+  .certificate-card img {
+    height: 180px;
+  }
+  .certificates-content {
+    padding-top: 80px;
+    padding-bottom: 50px;
+  }
+  
+  /* Modal Responsive */
+  .modal {
+    width: 95%;
+    max-width: 95%;
+    padding: 20px;
+  }
+  .modal img {
+    max-height: 50vh;
+  }
+  .lightbox-controls {
+    flex-direction: column;
+  }
+  .lightbox-controls .btn {
+    width: 100%;
+    margin: 5px 0;
+  }
 
 }
 
+/* Interactive UI additions - Enhanced */
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  backdrop-filter:blur(8px);
+  z-index:1000;
+  padding:20px;
+  animation:fadeIn 0.3s ease;
+}
+.modal-overlay.active{
+  display:flex;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.modal{
+  background:linear-gradient(135deg, rgba(42,42,42,0.98), rgba(30,30,30,0.98));
+  color:#fff;
+  border-radius:20px;
+  padding:30px;
+  max-width:900px;
+  width:100%;
+  max-height:90vh;
+  overflow-y:auto;
+  box-shadow:0 25px 80px rgba(0,0,0,.8), 0 0 40px rgba(254,215,0,0.2);
+  transform:translateY(30px) scale(0.95);
+  opacity:0;
+  animation:modalIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  border:2px solid rgba(254,215,0,0.2);
+}
+@keyframes modalIn{
+  to{
+    transform:translateY(0) scale(1);
+    opacity:1;
+  }
+}
+.modal header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+  padding-bottom:15px;
+  border-bottom:2px solid rgba(255,255,255,0.1);
+}
+.modal header h3{
+  font-size:24px;
+  color:#fed700;
+  font-weight:700;
+  margin:0;
+}
+.modal-close{
+  cursor:pointer;
+  color:#e5e5e5;
+  font-size:32px;
+  line-height:1;
+  transition:all 0.3s ease;
+  width:40px;
+  height:40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:rgba(255,255,255,0.05);
+}
+.modal-close:hover{
+  color:#fed700;
+  background:rgba(254,215,0,0.2);
+  transform:rotate(90deg);
+}
+.modal-close:active{
+  transform:rotate(90deg) scale(0.9);
+}
+.modal .actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:20px;
+}
+.modal .actions .btn{
+  background:rgba(51,51,51,0.8);
+  border-color:rgba(85,85,85,0.8);
+  flex:1;
+  min-width:120px;
+  transition:all 0.3s ease;
+}
+.modal .actions .btn:hover{
+  border-color:#fed700;
+  background:rgba(254,215,0,0.1);
+  transform:translateY(-2px);
+}
+.modal .actions .btn:active{
+  transform:translateY(0) scale(0.95);
+}
+.modal img {
+  border-radius:12px;
+  box-shadow:0 10px 40px rgba(0,0,0,0.5);
+  transition:transform 0.3s ease;
+}
+.modal img:hover {
+  transform:scale(1.02);
+}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#2a2a2a;color:#fff;padding:10px 16px;border-radius:8px;border:1px solid #444;box-shadow:0 10px 30px rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .2s, transform .2s;z-index:1100}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(-6px)}
+.btn{position:relative;overflow:hidden}
+.btn .ripple{position:absolute;border-radius:50%;transform:scale(0);animation:ripple .6s linear;background:rgba(255,255,255,.5);pointer-events:none}
+@keyframes ripple{to{transform:scale(4);opacity:0}}
+.submit.loading{opacity:.7;position:relative}
+.submit.loading::after{content:"";position:absolute;right:16px;top:50%;transform:translateY(-50%);width:16px;height:16px;border:2px solid #fed700;border-top-color:transparent;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:translateY(-50%) rotate(360deg)}}
+.profile-photo:focus{outline:2px dashed #fed700;outline-offset:4px}
+ /* Certificates Gallery - Enhanced UI/UX */
+.certificates-content{
+  padding-top:130px;
+  padding-bottom:80px;
+  background-color:#202020;
+  min-height:100vh;
+}
+.certificates-content .project-title {
+  margin-bottom:50px;
+}
+.cert-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:24px;
+  padding:20px 0;
+}
+.certificate-card{
+  position:relative;
+  background:linear-gradient(135deg, rgba(42,42,42,0.95), rgba(30,30,30,0.95));
+  border:2px solid rgba(255,255,255,0.1);
+  border-radius:16px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:0 4px 15px rgba(0,0,0,0.3);
+  display:flex;
+  flex-direction:column;
+}
+.certificate-card::before {
+  content:'';
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100%;
+  background:linear-gradient(90deg, transparent, rgba(254,215,0,0.15), transparent);
+  transition:left 0.6s;
+  z-index:1;
+}
+.certificate-card:hover::before {
+  left:100%;
+}
+.certificate-card img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+  display:block;
+  transition:transform 0.4s ease, filter 0.3s ease;
+  filter:brightness(0.9);
+}
+.certificate-card:hover img {
+  transform:scale(1.05);
+  filter:brightness(1);
+}
+.certificate-card .card-title{
+  padding:16px 16px 20px;
+  color:#fff;
+  font-weight:600;
+  font-size:16px;
+  text-align:center;
+  background:rgba(0,0,0,0.3);
+  position:relative;
+  z-index:2;
+  transition:color 0.3s;
+}
+.certificate-card:hover .card-title {
+  color:#fed700;
+}
+.certificate-card:hover{
+  transform:translateY(-8px) scale(1.02);
+  box-shadow:0 20px 50px rgba(254,215,0,0.3);
+  border-color:#fed700;
+}
+.certificate-card:active{
+  transform:translateY(-4px) scale(0.98);
+  box-shadow:0 12px 30px rgba(254,215,0,0.4);
+  border-color:#fed700;
+}
+.certificate-card.loading::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,rgba(255,255,255,0.06),rgba(255,255,255,0.12),rgba(255,255,255,0.06));
+  animation:shimmer 1.2s infinite;
+  z-index:3;
+}
+@keyframes shimmer{
+  0%{transform:translateX(-100%)}
+  100%{transform:translateX(100%)}
+}
+.certificate-card .overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,0.8));
+  opacity:0;
+  transition:opacity 0.3s;
+  color:#fff;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  padding:20px;
+  z-index:2;
+}
+.certificate-card:hover .overlay{
+  opacity:1;
+}
+.certificate-card .overlay::after {
+  content:'👁️ View Certificate';
+  font-size:14px;
+  font-weight:600;
+  color:#fed700;
+  text-shadow:0 2px 8px rgba(0,0,0,0.8);
+}
+.lightbox-controls{
+  justify-content:space-between;
+  margin-top:20px;
+  gap:10px;
+}
+.lightbox-controls .btn {
+  flex:1;
+  min-width:100px;
+}
+ /* Profile tilt glow */
+ .profile-photo{perspective:800px}
+ #profileImage{transition:transform .15s ease, box-shadow .2s ease}
+ .profile-photo.tilt #profileImage{box-shadow:0 12px 40px rgba(254,215,0,.2)}
+ 
+ /* General Click Animation Utility */
+ .clickable {
+   cursor: pointer;
+   user-select: none;
+   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+ }
+ .clickable:active {
+   transform: scale(0.95);
+ }
+ 
+ /* Smooth click feedback for all interactive elements */
+ * {
+   -webkit-tap-highlight-color: transparent;
+ }
+ 
+ /* Enhanced ripple effect for buttons */
+ @keyframes ripple-click {
+   0% {
+     transform: scale(0);
+     opacity: 1;
+   }
+   100% {
+     transform: scale(4);
+     opacity: 0;
+   }
+ }
+ 
+ /* Scroll to Top Button */
+ .scroll-to-top {
+   position: fixed;
+   bottom: 30px;
+   right: 30px;
+   width: 50px;
+   height: 50px;
+   background: linear-gradient(135deg, #fed700, #ffed4e);
+   color: #333;
+   border: none;
+   border-radius: 50%;
+   cursor: pointer;
+   display: none;
+   align-items: center;
+   justify-content: center;
+   font-size: 20px;
+   box-shadow: 0 4px 15px rgba(254, 215, 0, 0.4);
+   z-index: 999;
+   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+   opacity: 0;
+   transform: translateY(20px);
+ }
+ .scroll-to-top.show {
+   display: flex;
+   opacity: 1;
+   transform: translateY(0);
+ }
+ .scroll-to-top:hover {
+   transform: translateY(-5px) scale(1.1);
+   box-shadow: 0 8px 25px rgba(254, 215, 0, 0.6);
+ }
+ .scroll-to-top:active {
+   transform: translateY(-2px) scale(0.95);
+ }
+ 
+ /* Certificate Section Enhancements */
+ .certificates-content .project-title h4 {
+   background: linear-gradient(135deg, #fed700, #ffed4e);
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+   background-clip: text;
+   font-size: clamp(2rem, 4vw, 2.5rem);
+ }
+ 
+ /* Better spacing for mobile */
+ @media (max-width: 767px) {
+   .certificates-content {
+     padding-top: 60px;
+   }
+   .scroll-to-top {
+     bottom: 20px;
+     right: 20px;
+     width: 45px;
+     height: 45px;
+     font-size: 18px;
+   }
+ }
+ </style>
+
+<style>
+:root{
+  --bg: #070a12;
+  --bg2: #0b1020;
+  --surface: rgba(255,255,255,.06);
+  --border: rgba(255,255,255,.14);
+  --text: rgba(255,255,255,.92);
+  --muted: rgba(255,255,255,.72);
+  --muted2: rgba(255,255,255,.55);
+  --accent: #22d3ee;
+  --accent2: #a78bfa;
+  --shadow: 0 18px 60px rgba(0,0,0,.55);
+  --radius: 16px;
+  --radius-sm: 12px;
+}
+
+body{
+  color: var(--text);
+  background:
+    radial-gradient(900px 600px at 10% 10%, rgba(34,211,238,.18), transparent 55%),
+    radial-gradient(900px 600px at 85% 25%, rgba(167,139,250,.18), transparent 50%),
+    radial-gradient(800px 520px at 50% 95%, rgba(34,211,238,.10), transparent 55%),
+    linear-gradient(180deg, var(--bg), var(--bg2));
+}
+
+.container{
+  width: min(1100px, calc(100% - 40px));
+}
+
+.header-area{
+  background: linear-gradient(180deg, rgba(7,10,18,.92), rgba(7,10,18,.70));
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.header-area.sticky{
+  position: sticky;
+  padding: 0;
+}
+.header{
+  min-height: 74px;
+  gap: 20px;
+}
+
+.logo{
+  gap: 10px;
+  font-weight: 800;
+  letter-spacing: .4px;
+}
+.logo .fa-bolt{
+  position: static;
+  transform: none;
+  color: transparent;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  font-size: 20px;
+}
+.signature{display:none}
+
+.header ul li{margin: 0 6px}
+.header ul li a{
+  padding: 10px 12px;
+  border-radius: 999px;
+  color: var(--muted);
+}
+.header ul li a:hover{
+  color: var(--text);
+  background: rgba(255,255,255,.06);
+}
+.header ul li a.active{
+  color: var(--text);
+  background: linear-gradient(135deg, rgba(34,211,238,.18), rgba(167,139,250,.18));
+  border: 1px solid rgba(255,255,255,.12);
+}
+
+.FirstElement{
+  padding-top: 42px;
+}
+.FirstElement .profile-photo{
+  width: 320px;
+  height: auto;
+  aspect-ratio: 1/1;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  box-shadow: var(--shadow);
+}
+.FirstElement .profile-photo img:hover{
+  transform: none;
+}
+#profileImage{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .25s ease, filter .25s ease, box-shadow .25s ease;
+}
+.profile-photo:hover #profileImage{
+  transform: scale(1.04);
+}
+.profile-text h5{
+  color: var(--muted2);
+  letter-spacing: .8px;
+  text-transform: uppercase;
+}
+.profile-text h1{
+  color: transparent;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  font-size: clamp(2rem, 3.2vw, 3.25rem);
+  line-height: 1.15;
+}
+.profile-text p{color: var(--muted)}
+.profile-text .social i{
+  margin-right: 0;
+  font-size: 18px;
+}
+.social{
+  display:flex !important;
+  gap:12px;
+  margin-top: 18px;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+.social a{
+  width:40px;
+  height:40px;
+  border-radius: 12px;
+  display:grid !important;
+  place-items:center;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  transition: transform .2s, border-color .2s;
+  color: #e5e5e5;
+  text-decoration: none;
+  position: relative;
+}
+.social a i{
+  font-size: 18px !important;
+  color: #e5e5e5 !important;
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+.social a:hover{
+  transform: translateY(-2px);
+  border-color: rgba(254,215,0,.45);
+  background: rgba(254,215,0,.1);
+}
+.social a:hover i{
+  color: #fed700 !important;
+}
+.profile-text .social a:hover i{
+  color: #fed700 !important;
+}
+
+.btn-group{margin: 22px 0 0}
+.btn-group .btn{
+  border-radius: 999px;
+  padding: 12px 18px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.14);
+}
+.btn-group .btn#openContactActions{
+  background: linear-gradient(135deg, rgba(34,211,238,.92), rgba(167,139,250,.92));
+  color: #081019;
+  border-color: transparent;
+}
+
+.about-area, .education-content, .project-content, .certificates-content, .contact-content{
+  background: transparent;
+}
+.about-content, .about-skills, .timeline, .project, .contact, .certificate-card{
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 40px rgba(0,0,0,.30);
+}
+.project-title h4, .contact-title h4, .about-content h4{
+  color: transparent;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.project-title p, .contact-title p{color: var(--muted)}
+
+.projects{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+.project{
+  border-width: 1px;
+  text-align: left;
+}
+.project i{
+  background: linear-gradient(135deg, rgba(34,211,238,.20), rgba(167,139,250,.20));
+  border: 1px solid rgba(255,255,255,.12);
+  color: var(--text);
+  width: 46px;
+  height: 46px;
+  line-height: 46px;
+  border-radius: 14px;
+}
+.project h4{
+  font-size: 18px;
+  margin: 10px 0 8px;
+  text-align: left;
+}
+.project p{color: var(--muted)}
+
+.certificates-content{padding-top: 90px}
+.certificate-card img{border-bottom: 1px solid rgba(255,255,255,.10)}
+.certificate-card .overlay{
+  display:flex;
+  align-items:flex-end;
+  justify-content:flex-start;
+  padding: 12px;
+}
+.certificate-card .overlay span{
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.18);
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-weight: 650;
+  backdrop-filter: blur(10px);
+}
+
+.contact input,.contact textarea{
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.22);
+  color: var(--text);
+}
+.contact input:focus,.contact textarea:focus{border-color: rgba(34,211,238,.55)}
+.contact .submit{
+  background: linear-gradient(135deg, rgba(34,211,238,.92), rgba(167,139,250,.92));
+  color: #081019;
+  border: 0;
+}
+.contact .submit:hover{transform: translateY(-1px)}
+
+.modal{
+  background: rgba(12,16,30,.92);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: var(--radius);
+  backdrop-filter: blur(14px);
+}
+.modal header h3{
+  color: transparent;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+@media (max-width:1050px){
+  .FirstElement{
+    padding-top: 26px;
+  }
+}
+@media (max-width:900px){
+  .projects{grid-template-columns: repeat(2, minmax(0, 1fr))}
+}
+@media (max-width:768px){
+  .header .menu_icon{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,.14);
+    background: rgba(255,255,255,.06);
+  }
+  .header ul.navbar{
+    position: fixed;
+    top: 84px;
+    left: 20px;
+    right: 20px;
+    height: auto;
+    background: rgba(12,16,30,.92);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 12px;
+  }
+  .header ul.navbar li{margin: 0}
+  .header ul.navbar a{width: 100%}
+  .projects{grid-template-columns: 1fr}
+}
 </style>
 
 <body>
@@ -558,9 +1903,9 @@ profile-photo .img{
         <div class="container">
             <div class="header">
                
-                <a href="" class="logo">
-                    <img src="files/signaturecropped.png" alt="" class="signature">
-                    <i class="fa fa-bolt"></i>
+                <a href="#home" class="logo" aria-label="Go to Home">
+                    <span class="logo-text">Gunaseelan V </span>
+                    <i class="fa fa-bolt" aria-hidden="true"></i>
                 </a>
                    
                 <ul class="navbar">
@@ -568,40 +1913,47 @@ profile-photo .img{
                     <li><a href="#about">About</a></li>
                     <li><a href="#education">Education</a></li>
                     <li><a href="#projects">Projects</a></li>
+                    <li><a href="#certificates">Certificates</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
                 
-                <div class="menu_icon">
+                <button class="menu_icon" type="button" aria-label="Toggle navigation" aria-expanded="false">
                     <i class="fa fa-bars"></i>
-                </div>
+                </button>
 
             </div>
         </div> 
     </header>
  
     <!-------------------------- Home Page -------------------------->
-    <div class="FirstElement" id="home">
-        <div class="profile-photo">
-            <img src="gunaseelan.jfif" alt="profile picture">
-        </div>
-        <div class="profile-text">
-            <h5>Hi I'm </h5><br>
-            <h1>Gunaseelan V</h1><br>
-            <p>Welcome to my portfolio website! I'm a passionate and aspiring software engineer with a strong desire to create innovative solutions and push the boundaries of technology.With a deep love for coding and problem-solving, I am constantly seeking opportunities to learn and grow in this ever-evolving field</p>
-            
-            <div class="btn-group">
-              
-                <a href="mailto:gunaseelanvinothv@gmail.com" class="btn">Contact</a>
+    <section class="FirstElement" id="home">
+        <div class="container">
+            <div class="profile-photo" id="profilePhoto" role="button" tabindex="0" aria-label="View profile details">
+                <img id="profileImage" src="/files/portfolio/gunaimage.jpg" alt="profile picture">
             </div>
-
-            <div class="social">
-                <a href="mailto:gunaseelanvinothv@gmail.com"><i class="fa fa-envelope"></i></a>
-                <a href="https://github.com/gunaseelanvinoth"><i class="fa-brands fa-github"></i></a>
+            <div class="profile-text">
+                <h5>Hi I'm</h5>
+                <h1>Gunaseelan V</h1>
+                <p>Welcome to my portfolio website! I'm a passionate and aspiring software engineer with a strong desire to create innovative solutions and push the boundaries of technology.With a deep love for coding and problem-solving, I am constantly seeking opportunities to learn and grow in this ever-evolving field</p>
                 
-                <a href="https://www.linkedin.com/in/gunaseelan-v-a68731293/"><i class="fa-brands fa-linkedin"></i></a>
+                <div class="btn-group">
+                    <a href="#contact" class="btn" id="openContactActions">Contact</a>
+                </div>
+
+                <div class="social" style="display: flex !important; opacity: 1 !important; visibility: visible !important;">
+                    <a href="mailto:gunaseelanvinothv@gmail.com" aria-label="Email" target="_blank" style="display: flex !important; align-items: center !important; justify-content: center !important;">
+                        <i class="fas fa-envelope" style="font-size: 18px !important; color: #e5e5e5 !important; display: inline-block !important;"></i>
+                    </a>
+                    <a href="https://github.com/gunaseelanvinoth" aria-label="GitHub" target="_blank" style="display: flex !important; align-items: center !important; justify-content: center !important;">
+                        <i class="fab fa-github" style="font-size: 18px !important; color: #e5e5e5 !important; display: inline-block !important;"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/gunaseelan-v-a68731293/" aria-label="LinkedIn" target="_blank" style="display: flex !important; align-items: center !important; justify-content: center !important;">
+                        <i class="fab fa-linkedin" style="font-size: 18px !important; color: #e5e5e5 !important; display: inline-block !important;"></i>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
         <!-------------------------- About Section -------------------------->
     <section class="about-area" id="about">
@@ -611,7 +1963,7 @@ profile-photo .img{
                 <div class="about-content">
                     <h4>About Me</h4>
                     <ul>
-                      <li>I am currently pursuing my second year Bachelor's Degree in Electronics and Communication Engineering.I have built a solid foundation in software development.</li>
+                      <li>I am currently pursuing my Bachelor's Degree in Electronics and Communication Engineering.I have built a solid foundation in software development.</li>
                       <li> My expertise in these areas allows me to approach projects with confidence and deliver high-quality results.I have a strong belief in the value of continuous learning and staying adaptable in the ever-evolving world of software engineering.</li>
                       <li> I actively seek out opportunities to expand my knowledge and skills, embracing new technologies and approaches.Feel free to explore my work and get in touch if you have any questions or opportunities to collaborate. </li>
                     </ul>
@@ -619,11 +1971,10 @@ profile-photo .img{
                                   
                 <div class="about-skills">
                     <ul>
-                        <li>Name:GUNASEELAN V </li>
-                        <li>Age:18</li>     
-                        <li>From:India</li>
-                        <li>Email:gunaseelanvinothv@gmail.com</li>
-                        <li>Availabiltiy:Part-time</li>
+                        <li>Name: GUNASEELAN V </li>
+                        <li>Age: 19</li>     
+                        <li>From: India</li>
+                        <li>Email: gunaseelanvinothv@gmail.com</li>
                         <li>Experience&lt;1yr</li>
                     </ul>
                 </div>
@@ -748,6 +2099,76 @@ profile-photo .img{
         </div>
     </section>
 
+    <!-- Certificates Section -->
+    <section class="certificates-content" id="certificates">
+         <div class="container">
+             <div class="project-title">
+                 <h4>My Certificates</h4>
+                 <p>Click any certificate to view in full size. Scroll to explore all achievements.</p>
+             </div>
+             <div class="cert-grid">
+                <div class="certificate-card loading" data-title="Prodigy InfoTech" data-src-base="prodigy" data-img-url="/files/certificates/WhatsApp Image 2025-12-19 at 5.15.48 PM.jpeg">
+                    <img src="/files/certificates/WhatsApp Image 2025-12-19 at 5.15.48 PM.jpeg" alt="Prodigy InfoTech certificate">
+                      <div class="card-title">Prodigy InfoTech</div>
+                  </div>
+                 <div class="certificate-card loading" data-title="CodSoft" data-src-base="codsoft" data-img-url="/files/certificates/WhatsApp Image 2025-12-19 at 5.15.48 PM (1).jpeg">
+                    <img src="/files/certificates/WhatsApp Image 2025-12-19 at 5.15.48 PM (1).jpeg" alt="CodSoft certificate">
+                      <div class="card-title">CodSoft</div>
+                  </div>
+                 <div class="certificate-card loading" data-title="IVENOR'24 - Line Follower" data-src-base="ivenor" data-img-url="/files/certificates/WhatsApp Image 2025-12-19 at 5.15.49 PM.jpeg">
+                    <img src="/files/certificates/WhatsApp Image 2025-12-19 at 5.15.49 PM.jpeg" alt="IVENOR'24 certificate">
+                      <div class="card-title">IVENOR'24</div>
+                  </div>
+                 <div class="certificate-card loading" data-title="IEEE DevSpark'25 Participation" data-src-base="ieee_devspark" data-img-url="/files/certificates/WhatsApp Image 2025-12-19 at 5.15.49 PM (1).jpeg">
+                    <img src="/files/certificates/WhatsApp Image 2025-12-19 at 5.15.49 PM (1).jpeg" alt="IEEE DevSpark'25 certificate">
+                      <div class="card-title">IEEE DevSpark'25</div>
+                  </div>
+                 <!-- Newly added certificates -->
+                 <div class="certificate-card loading" data-title="Front End Development - HTML (Great Learning)" data-src-base="gl_frontend_html" data-verify-url="https://www.mygreatlearning.com/certificate/VSBPFXEQ" data-img-url="/files/certificates/Gunaseelan V-5_page-0001.jpg">
+                    <img src="/files/certificates/Gunaseelan V-5_page-0001.jpg" alt="Front End Development - HTML certificate">
+                      <div class="card-title">HTML - Great Learning</div>
+                  </div>
+                 <div class="certificate-card loading" data-title="Data Structures in C (Great Learning)" data-src-base="gl_data_structures_c" data-verify-url="https://www.mygreatlearning.com/certificate/YYOHNFLT" data-img-url="/files/certificates/Gunaseelan V-6 - Copy_page-0001.jpg">
+                    <img src="/files/certificates/Gunaseelan V-6 - Copy_page-0001.jpg" alt="Data Structures in C certificate">
+                      <div class="card-title">Data Structures in C</div>
+                  </div>
+                 <div class="certificate-card loading" data-title="Flutter for Beginners (Great Learning)" data-src-base="gl_flutter_beginners" data-verify-url="https://www.mygreatlearning.com/certificate/VVYZUTKD" data-img-url="/files/certificates/Gunaseelan V-7_page-0001.jpg">
+                    <img src="/files/certificates/Gunaseelan V-7_page-0001.jpg" alt="Flutter for Beginners certificate">
+                      <div class="card-title">Flutter for Beginners</div>
+                  </div>
+                 <div class="certificate-card loading" data-title="C for Beginners (Great Learning)" data-src-base="gl_c_beginners" data-verify-url="https://www.mygreatlearning.com/certificate/OOPTONJF" data-img-url="/files/certificates/Gunaseelan V-8_page-0001.jpg">
+                    <img src="/files/certificates/Gunaseelan V-8_page-0001.jpg" alt="C for Beginners certificate">
+                      <div class="card-title">C for Beginners</div>
+                  </div>
+                 <div class="certificate-card loading" data-title="JavaScript (Basic) – HackerRank" data-src-base="hackerrank_js_basic" data-verify-url="https://www.hackerrank.com/certificates/8EB209576D4F" data-img-url="/files/certificates/javascript_basic certificate_page-0001.jpg">
+                    <img src="/files/certificates/javascript_basic certificate_page-0001.jpg" alt="JavaScript (Basic) – HackerRank certificate">
+                      <div class="card-title">JavaScript (Basic) – HackerRank</div>
+                  </div>
+                 <div class="certificate-card loading" data-title="SQL (Basic) – HackerRank" data-src-base="hackerrank_js_basic" data-verify-url="https://www.hackerrank.com/certificates/8EB209576D4F" data-img-url="/files/certificates/sql_basic certificate (1)_page-0001.jpg">
+                    <img src="/files/certificates/sql_basic certificate (1)_page-0001.jpg" alt="SQL (Basic) – HackerRank certificate">
+                      <div class="card-title">SQL (Basic) – HackerRank</div>
+                  </div>
+             </div>
+         </div>
+     </section>
+
+    <!-- Certificate Lightbox -->
+    <div id="certificateLightbox" class="modal-overlay" aria-hidden="true">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="certLightboxTitle">
+        <header>
+          <h3 id="certLightboxTitle">Certificate</h3>
+          <span class="modal-close" data-close="certificateLightbox" aria-label="Close">&times;</span>
+        </header>
+        <img id="certImage" src="" alt="Certificate preview" style="border-radius:8px;max-height:65vh;width:100%;object-fit:contain;background:#111;">
+        <small id="certError" style="display:none;color:#ff8a8a;margin-top:8px">Image not found. Please place files under <code>files/certificates/</code>.</small>
+        <div class="actions lightbox-controls">
+          <button class="btn" id="prevCert">Prev</button>
+          <button class="btn" id="nextCert">Next</button>
+          <a class="btn" id="openFull" target="_blank">Open Full</a>
+        </div>
+      </div>
+    </div>
+
         <!-------------------------- Contact Me -------------------------->
 
     <section class="contact-content" id="contact">
@@ -757,28 +2178,69 @@ profile-photo .img{
                 <p>Get In Touch</p>
             </div>
             <div class="contact">
-                <form name="submitToGoogleSheet">
-                    <input type="text" name="NAME" placeholder="Name" required>
-                    <input type="email" name="EMAIL" placeholder="Email" required>
+                <form name="submitToGoogleSheet" id="contactForm">
+                    <input type="text" name="NAME" placeholder="Name *" required>
+                    <input type="email" name="EMAIL" placeholder="Email *" required>
                     <input type="text" name="SUBJECT" placeholder="Subject">
-                    <textarea name="MESSAGE" placeholder="Message"></textarea>
+                    <textarea name="MESSAGE" placeholder="Message *" rows="5" required></textarea>
                     <input type="submit" value="Send Message" class="submit">
                 </form>
                 <span id="msg"></span>
+                <p style="margin-top: 20px; font-size: 12px; color: rgba(255,255,255,0.5); text-align: center;">
+                    Having trouble? Email me directly at <a href="mailto:gunaseelanvinothv@gmail.com" style="color: #fed700; text-decoration: underline;">gunaseelanvinothv@gmail.com</a>
+                </p>
             </div>
         </div>
     </section>
-        
+
+    <!-- Interactive Modals & Toast -->
+    <div id="imageModal" class="modal-overlay" aria-hidden="true">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="imageModalTitle">
+        <header>
+          <h3 id="imageModalTitle">Hello! I'm Gunaseelan</h3>
+          <span class="modal-close" data-close="imageModal" aria-label="Close">&times;</span>
+        </header>
+        <img src="/files/portfolio/gunaimage.jpg" alt="profile picture enlarged" style="border-radius:12px;max-height:320px;width:100%;object-fit:cover;object-position:top center;">
+        <p style="margin-top:12px;color:rgba(255,255,255,.78)">Aspiring software engineer excited about building delightful experiences.</p>
+        <div class="actions">
+          <a href="mailto:gunaseelanvinothv@gmail.com" class="btn">Email Me</a>
+          <button class="btn" id="copyEmail">Copy Email</button>
+          <a href="#contact" class="btn" id="goToContactForm">Go to Contact Form</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="contactActions" class="modal-overlay" aria-hidden="true">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="contactActionsTitle">
+        <header>
+          <h3 id="contactActionsTitle">Quick Contact</h3>
+          <span class="modal-close" data-close="contactActions" aria-label="Close">&times;</span>
+        </header>
+        <p style="color:#e5e5e5">Email: <span id="emailValue">gunaseelanvinothv@gmail.com</span></p>
+        <div class="actions">
+          <a href="mailto:gunaseelanvinothv@gmail.com" class="btn">Open Mail App</a>
+          <button class="btn" id="copyEmail2">Copy Email</button>
+          <a href="#contact" class="btn" id="focusContactForm">Focus Contact Form</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top">
+      <i class="fa fa-arrow-up"></i>
+    </button>
+
     <!-------------------------- JS -------------------------->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <script src="https://unpkg.com/scrollreveal"></script>
-    <script src="script.js"></script>
     
     <!-------------------------- Footer section -------------------------->
    <footer class="footer">
     <small class="message">Thanks for visiting and happy coding!</small>
-    <small class="copyright">&copy; Copyright 2024. All rights reserved.</small>
+    <small class="copyright">&copy; Copyright 2025. All rights reserved.</small>
    </footer>
 <script>
     
@@ -794,6 +2256,18 @@ $(document).ready(function() {
 
     // Update the active section in the header
     updateActiveSection();
+    
+    // Show/hide scroll to top button
+    if ($(this).scrollTop() > 300) {
+      $("#scrollToTop").addClass("show");
+    } else {
+      $("#scrollToTop").removeClass("show");
+    }
+  });
+  
+  // Scroll to top functionality
+  $("#scrollToTop").click(function() {
+    $("html, body").animate({ scrollTop: 0 }, 600);
   });
 
   $(".header ul li a").click(function(e) {
@@ -847,24 +2321,169 @@ $(document).ready(function() {
   ScrollReveal().reveal(".projects, .contact", {
     origin: "bottom"
   });
+  ScrollReveal().reveal(".cert-grid .certificate-card", {
+    origin: "bottom",
+    interval: 100
+  });
 
 //contact form to excel sheet
-const scriptURL = 'https://script.google.com/macros/s/AKfycbzUSaaX3XmlE5m9YLOHOBrRuCh2Ohv49N9bs4bew7xPd1qlgpvXtnudDs5Xhp3jF-Fx/exec';
+const scriptURL = 'https://script.google.com/macros/s/AKfycbzON_ZJhHmR7GFtE8xai5-0wCOfGGj9TNxB5DfTRAM_WZxcm42DtDaHIwxMhYkWf2AInQ/exec';
 const form = document.forms['submitToGoogleSheet']
 const msg = document.getElementById("msg")
 
-form.addEventListener('submit', e => {
+// Test function to verify script URL (run in console: testContactForm())
+window.testContactForm = function() {
+  console.log('Testing contact form setup...');
+  console.log('Script URL:', scriptURL);
+  
+  fetch(scriptURL + '?test=1', { method: 'GET' })
+    .then(response => response.text())
+    .then(text => {
+      console.log('✅ Script is accessible! Response:', text);
+      alert('Script is working! Response: ' + text);
+    })
+    .catch(error => {
+      console.error('❌ Script test failed:', error);
+      alert('Script test failed. Check console for details.');
+    });
+};
+
+if (form) {
+  form.addEventListener('submit', e => {
     e.preventDefault()
-    fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-        .then(response => {
-            msg.innerHTML = "Message sent successfully"
-            setTimeout(function () {
-                msg.innerHTML = ""
-            }, 5000)
-            form.reset()
-        })
-        .catch(error => console.error('Error!', error.message))
-})
+    
+    const submitBtn = document.querySelector(".contact .submit");
+    const nameField = form.querySelector('input[name="NAME"]');
+    const emailField = form.querySelector('input[name="EMAIL"]');
+    const messageField = form.querySelector('textarea[name="MESSAGE"]');
+    
+    // Validate required fields
+    if (!nameField.value.trim()) {
+      msg.innerHTML = "<span style='color:#ff6b6b'>⚠ Please enter your name</span>";
+      msg.style.display = "block";
+      nameField.focus();
+      nameField.style.borderColor = "#ff6b6b";
+      setTimeout(() => { nameField.style.borderColor = ""; }, 3000);
+      return;
+    }
+    
+    if (!emailField.value.trim() || !emailField.value.includes('@')) {
+      msg.innerHTML = "<span style='color:#ff6b6b'>⚠ Please enter a valid email address</span>";
+      msg.style.display = "block";
+      emailField.focus();
+      emailField.style.borderColor = "#ff6b6b";
+      setTimeout(() => { emailField.style.borderColor = ""; }, 3000);
+      return;
+    }
+    
+    if (!messageField.value.trim()) {
+      msg.innerHTML = "<span style='color:#ff6b6b'>⚠ Please enter your message</span>";
+      msg.style.display = "block";
+      messageField.focus();
+      messageField.style.borderColor = "#ff6b6b";
+      setTimeout(() => { messageField.style.borderColor = ""; }, 3000);
+      return;
+    }
+    
+    // Disable button and show loading
+    if (submitBtn) {
+      submitBtn.classList.add("loading");
+      submitBtn.disabled = true;
+      submitBtn.value = "Sending...";
+    }
+    
+    msg.innerHTML = "<span style='color:#00d4ff'>📤 Sending message...</span>";
+    msg.style.display = "block";
+    
+    // Get form values
+    const name = form.NAME.value.trim();
+    const email = form.EMAIL.value.trim();
+    const subject = form.SUBJECT.value.trim() || 'Portfolio Contact';
+    const message = form.MESSAGE.value.trim();
+    
+    console.log('Submitting form data:', { name, email, subject, message });
+    console.log('Script URL:', scriptURL);
+    
+    // Build URL-encoded data string
+    const dataString = `NAME=${encodeURIComponent(name)}&EMAIL=${encodeURIComponent(email)}&SUBJECT=${encodeURIComponent(subject)}&MESSAGE=${encodeURIComponent(message)}`;
+    console.log('URL-encoded data:', dataString);
+    
+    // Create a hidden iframe for form submission
+    let iframe = document.getElementById('hiddenFormFrame');
+    if (!iframe) {
+      iframe = document.createElement('iframe');
+      iframe.id = 'hiddenFormFrame';
+      iframe.name = 'hiddenFormFrame';
+      iframe.style.display = 'none';
+      iframe.style.width = '0';
+      iframe.style.height = '0';
+      iframe.style.border = 'none';
+      document.body.appendChild(iframe);
+    }
+    
+    // Create a form element that will submit to Google Apps Script
+    const submitForm = document.createElement('form');
+    submitForm.method = 'POST';
+    submitForm.action = scriptURL;
+    submitForm.target = 'hiddenFormFrame';
+    submitForm.style.display = 'none';
+    
+    // Add form fields
+    const fields = [
+      { name: 'NAME', value: name },
+      { name: 'EMAIL', value: email },
+      { name: 'SUBJECT', value: subject },
+      { name: 'MESSAGE', value: message }
+    ];
+    
+    fields.forEach(field => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = field.name;
+      input.value = field.value;
+      submitForm.appendChild(input);
+      console.log(`Added field: ${field.name} = ${field.value.substring(0, 30)}...`);
+    });
+    
+    // Append form to body and submit
+    document.body.appendChild(submitForm);
+    console.log('Submitting form with', fields.length, 'fields');
+    submitForm.submit();
+    
+    // Clean up form after submission
+    setTimeout(() => {
+      if (submitForm.parentNode) {
+        submitForm.parentNode.removeChild(submitForm);
+      }
+    }, 1000);
+    
+    // Show success message
+    setTimeout(() => {
+      msg.innerHTML = "<span style='color:#00ff88'>✓ Message sent successfully! I'll get back to you soon.</span>";
+      msg.style.display = "block";
+      
+      if (typeof showToast === 'function') { 
+        showToast("Message sent successfully!"); 
+      }
+      
+      // Reset form
+      form.reset();
+      
+      // Clear message after 5 seconds
+      setTimeout(function () {
+        msg.innerHTML = "";
+        msg.style.display = "none";
+      }, 5000);
+      
+      // Re-enable button
+      if (submitBtn) {
+        submitBtn.classList.remove("loading");
+        submitBtn.disabled = false;
+        submitBtn.value = "Send Message";
+      }
+    }, 1500);
+  });
+}
   
 });
 
@@ -897,7 +2516,273 @@ function updateActiveSection() {
 
 
 
-</script>   
+</script>
+<script>
+(function(){
+  function openModal(id){ const el=document.getElementById(id); if(!el) return; el.classList.add('active'); el.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
+  function closeModal(id){ const el=document.getElementById(id); if(!el) return; el.classList.remove('active'); el.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+  window.openModal = openModal;
+  window.closeModal = closeModal;
 
+  document.querySelectorAll('.modal-close').forEach(x => x.addEventListener('click', e => closeModal(e.currentTarget.getAttribute('data-close'))));
+  document.querySelectorAll('.modal-overlay').forEach(ov => ov.addEventListener('click', e => { if (e.target === ov) closeModal(ov.id); }));
+  document.addEventListener('keydown', e => { if(e.key === 'Escape'){ document.querySelectorAll('.modal-overlay.active').forEach(el => closeModal(el.id)); } });
+
+  const profile = document.getElementById('profilePhoto');
+  if (profile) {
+    profile.addEventListener('click', () => openModal('imageModal'));
+    profile.addEventListener('keypress', (e) => { if (e.key === 'Enter' || e.key === ' ') openModal('imageModal'); });
+  }
+  const contactBtn = document.getElementById('openContactActions');
+  if (contactBtn) {
+    contactBtn.addEventListener('click', (e) => { e.preventDefault(); openModal('contactActions'); const contactSection=document.getElementById('contact'); if(contactSection) contactSection.scrollIntoView({behavior:'smooth'}); });
+  }
+
+  const menuBtn = document.querySelector('.menu_icon');
+  const nav = document.querySelector('.navbar');
+  if (menuBtn && nav) {
+    function closeNav(){
+      nav.classList.remove('active');
+      menuBtn.setAttribute('aria-expanded','false');
+    }
+    menuBtn.addEventListener('click', () => {
+      nav.classList.toggle('active');
+      menuBtn.setAttribute('aria-expanded', nav.classList.contains('active') ? 'true' : 'false');
+    });
+    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+    document.addEventListener('click', (e) => {
+      if (!nav.classList.contains('active')) return;
+      if (nav.contains(e.target) || menuBtn.contains(e.target)) return;
+      closeNav();
+    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeNav(); });
+  }
+
+  function copyEmail(){
+    const email = 'gunaseelanvinothv@gmail.com';
+    navigator.clipboard.writeText(email).then(() => showToast('Email copied to clipboard'));
+  }
+  const copyEmailBtn = document.getElementById('copyEmail'); if(copyEmailBtn) copyEmailBtn.addEventListener('click', copyEmail);
+  const copyEmailBtn2 = document.getElementById('copyEmail2'); if(copyEmailBtn2) copyEmailBtn2.addEventListener('click', copyEmail);
+
+  const focusBtn = document.getElementById('focusContactForm'); if(focusBtn){ focusBtn.addEventListener('click', () => { closeModal('contactActions'); const nameInput = document.querySelector(".contact input[name='NAME']"); if(nameInput){ nameInput.focus(); } }); }
+  const goToFormBtn = document.getElementById('goToContactForm'); if(goToFormBtn){ goToFormBtn.addEventListener('click', () => { closeModal('imageModal'); const contactSection=document.getElementById('contact'); if(contactSection) contactSection.scrollIntoView({behavior:'smooth'}); const nameInput = document.querySelector(".contact input[name='NAME']"); if(nameInput){ nameInput.focus(); } }); }
+
+  document.querySelectorAll('.btn').forEach(btn => {
+    btn.addEventListener('click', function(e){
+      const rect = this.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      ripple.className = 'ripple';
+      const size = Math.max(rect.width, rect.height);
+      ripple.style.width = ripple.style.height = size + 'px';
+      ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+      ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+      this.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 600);
+    });
+  });
+
+  window.showToast = function(message){
+    const t = document.getElementById('toast');
+    if(!t) return;
+    t.textContent = message;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  };
+})();
+</script>
+
+<script>
+// Certificates Lightbox logic
+(function(){
+  const cards = Array.from(document.querySelectorAll('.certificate-card'));
+   const lightboxId = 'certificateLightbox';
+   const imgEl = document.getElementById('certImage');
+   const errEl = document.getElementById('certError');
+   const titleEl = document.getElementById('certLightboxTitle');
+   const openFull = document.getElementById('openFull');
+   const prevBtn = document.getElementById('prevCert');
+   const nextBtn = document.getElementById('nextCert');
+   let idx = 0;
+
+   const exts = ['jpg','jpeg','png','webp'];
+   function resolveAndLoad(img, base, cb){
+     let tryIdx = 0;
+     function attempt(){
+       const path = `files/certificates/${base}.${exts[tryIdx]}`;
+       img.src = path;
+       img.onerror = function(){
+         tryIdx++;
+         if (tryIdx < exts.length) attempt();
+         else { if (cb) cb(null); }
+       };
+       img.onload = function(){ if (cb) cb(path); };
+     }
+     attempt();
+   }
+
+  cards.forEach((card, i) => {
+    const base = card.getAttribute('data-src-base');
+    const external = card.getAttribute('data-img-url');
+    const title = card.getAttribute('data-title') || 'Certificate';
+    const thumb = card.querySelector('img');
+    if (thumb) thumb.alt = `${title} certificate`;
+
+    let overlay = card.querySelector('.overlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.className = 'overlay';
+      overlay.innerHTML = '<span>View</span>';
+      card.appendChild(overlay);
+    }
+
+    if (external) {
+      card.dataset.resolvedSrc = external;
+      if (thumb && thumb.getAttribute('src') !== external) thumb.src = external;
+      if (thumb) {
+        thumb.onload = () => card.classList.remove('loading');
+        thumb.onerror = () => card.classList.remove('loading');
+      } else {
+        card.classList.remove('loading');
+      }
+    } else if (thumb && thumb.getAttribute('src')) {
+      card.classList.remove('loading');
+      card.dataset.resolvedSrc = thumb.getAttribute('src');
+    } else if (thumb && base) {
+      resolveAndLoad(thumb, base, (resolved) => {
+        card.classList.remove('loading');
+        if (resolved) card.dataset.resolvedSrc = resolved;
+      });
+    } else {
+      card.classList.remove('loading');
+    }
+
+    card.addEventListener('click', () => { window.openModal(lightboxId); show(i); });
+    card.setAttribute('role','button');
+    card.setAttribute('tabindex','0');
+    card.addEventListener('keypress',(e)=>{ if(e.key==='Enter' || e.key===' ') { window.openModal(lightboxId); show(i); } });
+  });
+
+
+    function show(index){
+      idx = (index + cards.length) % cards.length;
+      const card = cards[idx];
+      const title = card.getAttribute('data-title') || 'Certificate';
+      titleEl.textContent = title;
+      errEl.style.display = 'none';
+      imgEl.style.background = '#111';
+      const base = card.getAttribute('data-src-base');
+        const preset = card.dataset.resolvedSrc;
+        const verify = card.getAttribute('data-verify-url');
+        const external = card.getAttribute('data-img-url');
+        if (external){
+          imgEl.src = external;
+          openFull.href = verify || external;
+          openFull.textContent = verify ? 'Verify' : 'Open Full';
+          imgEl.onerror = function(){ errEl.style.display='inline-block'; imgEl.style.background='linear-gradient(135deg,#333,#111)'; };
+        }
+        else if (preset){
+          imgEl.src = preset;
+          openFull.href = verify || preset;
+          openFull.textContent = verify ? 'Verify' : 'Open Full';
+        } else {
+          resolveAndLoad(imgEl, base, (resolved) => {
+            if (resolved) {
+              openFull.href = verify || resolved;
+              openFull.textContent = verify ? 'Verify' : 'Open Full';
+            }
+            else {
+              errEl.style.display = 'inline-block';
+              imgEl.style.background = 'linear-gradient(135deg,#333,#111)';
+            }
+          });
+        }
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', () => show(idx - 1));
+    if (nextBtn) nextBtn.addEventListener('click', () => show(idx + 1));
+
+    document.addEventListener('keydown', (e) => {
+      const active = document.getElementById(lightboxId);
+      if (active && active.classList.contains('active')){
+        if (e.key === 'ArrowLeft') show(idx - 1);
+        if (e.key === 'ArrowRight') show(idx + 1);
+      }
+    });
+ })();
+
+  // Profile image tilt and fallback
+  (function(){
+    const img = document.getElementById('profileImage');
+    const container = document.getElementById('profilePhoto');
+    if (!img) return;
+    const placeholder = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240"><rect width="100%" height="100%" fill="%23202020"/><text x="50%" y="52%" dominant-baseline="middle" text-anchor="middle" fill="%23cccccc" font-family="sans-serif" font-size="20">Profile</text></svg>';
+    img.addEventListener('error', function(){ this.src = placeholder; });
+    function tilt(e){
+      const r = img.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width;
+      const y = (e.clientY - r.top) / r.height;
+      const rotY = (x - 0.5) * 12;
+      const rotX = (0.5 - y) * 12;
+      img.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.02)`;
+      img.style.transition = 'transform 80ms';
+    }
+    if (container){
+      container.addEventListener('mousemove', tilt);
+      container.addEventListener('mouseenter', () => container.classList.add('tilt'));
+      container.addEventListener('mouseleave', () => { img.style.transform=''; img.style.transition='transform 180ms'; container.classList.remove('tilt'); });
+    } else {
+      img.addEventListener('mousemove', tilt);
+      img.addEventListener('mouseleave', () => { img.style.transform=''; img.style.transition='transform 180ms'; });
+    }
+    img.addEventListener('focus', () => { img.style.transform = 'scale(1.02)'; if(container) container.classList.add('tilt'); });
+    img.addEventListener('blur', () => { img.style.transform = ''; if(container) container.classList.remove('tilt'); });
+  })();
+</script>
+    <!-- Check if Font Awesome loaded and ensure social icons are visible -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if Font Awesome is loaded
+            const testIcon = document.createElement('i');
+            testIcon.className = 'fas fa-envelope';
+            document.body.appendChild(testIcon);
+            const computedStyle = window.getComputedStyle(testIcon, ':before');
+            const fontFamily = computedStyle.getPropertyValue('font-family');
+            
+            if (!fontFamily.includes('Font Awesome')) {
+                console.warn('Font Awesome not loaded, trying backup CDN...');
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css';
+                document.head.appendChild(link);
+            }
+            
+            document.body.removeChild(testIcon);
+            
+            // Force social icons to be visible
+            const socialIcons = document.querySelectorAll('.social i');
+            socialIcons.forEach(icon => {
+                icon.style.display = 'inline-block';
+                icon.style.visibility = 'visible';
+                icon.style.opacity = '1';
+                icon.style.fontSize = '18px';
+                icon.style.color = '#e5e5e5';
+            });
+            
+            const socialLinks = document.querySelectorAll('.social a');
+            socialLinks.forEach(link => {
+                link.style.display = 'flex';
+                link.style.visibility = 'visible';
+                link.style.opacity = '1';
+            });
+            
+            const socialDivs = document.querySelectorAll('.social');
+            socialDivs.forEach(div => {
+                div.style.display = 'flex';
+                div.style.visibility = 'visible';
+                div.style.opacity = '1';
+            });
+        });
+    </script>
 </body>
 </html>
