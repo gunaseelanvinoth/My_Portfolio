@@ -14,17 +14,17 @@
     :root {
       --ink: #f7fafc;
       --muted: #9aa6b2;
-      --paper: #0d1117;
-      --panel: rgba(255,255,255,.075);
-      --panel-strong: rgba(255,255,255,.12);
-      --line: rgba(255,255,255,.16);
-      --teal: #35e4c6;
-      --amber: #ffce5c;
-      --coral: #ff7a70;
-      --violet: #9b8cff;
-      --blue: #67b7ff;
-      --pine: #1f6f60;
-      --mist: #d9fff5;
+      --paper: #10071f;
+      --panel: rgba(118,65,189,.16);
+      --panel-strong: rgba(144,91,255,.24);
+      --line: rgba(224,204,255,.18);
+      --teal: #56f4ff;
+      --amber: #f6d365;
+      --coral: #ff6ec7;
+      --violet: #a855f7;
+      --blue: #8be9ff;
+      --pine: #5f3dc4;
+      --mist: #f6edff;
       --radius: 8px;
       --shadow: 0 24px 80px rgba(0,0,0,.35);
     }
@@ -36,9 +36,10 @@
       font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--ink);
       background:
-        linear-gradient(115deg, rgba(42,157,143,.18), transparent 30%),
-        linear-gradient(245deg, rgba(233,196,106,.13), transparent 34%),
-        linear-gradient(180deg, #071513 0%, #0b1517 38%, #10151f 100%);
+        radial-gradient(circle at 16% 18%, rgba(168,85,247,.32), transparent 24%),
+        radial-gradient(circle at 82% 10%, rgba(86,244,255,.18), transparent 24%),
+        radial-gradient(circle at 58% 68%, rgba(255,110,199,.13), transparent 30%),
+        linear-gradient(180deg, #10071f 0%, #160d2d 42%, #0c0718 100%);
       overflow-x: hidden;
     }
 
@@ -61,7 +62,7 @@
       inset: -30%;
       z-index: -1;
       pointer-events: none;
-      background: conic-gradient(from 90deg, rgba(53,228,198,.13), rgba(255,206,92,.08), rgba(103,183,255,.12), rgba(255,122,112,.10), rgba(53,228,198,.13));
+      background: conic-gradient(from 90deg, rgba(168,85,247,.24), rgba(86,244,255,.12), rgba(255,110,199,.18), rgba(246,211,101,.10), rgba(168,85,247,.24));
       filter: blur(70px);
       opacity: .65;
       animation: atmosphere 18s ease-in-out infinite alternate;
@@ -104,8 +105,8 @@
     body.cursor-active .cursor-ring {
       width: 66px;
       height: 66px;
-      border-color: rgba(53,228,198,.92);
-      background: rgba(53,228,198,.08);
+      border-color: rgba(168,85,247,.92);
+      background: rgba(168,85,247,.12);
     }
 
     .click-ripple {
@@ -138,9 +139,9 @@
       position: fixed;
       inset: 0 0 auto 0;
       z-index: 20;
-      border-bottom: 1px solid rgba(255,255,255,.09);
-      background: rgba(13,17,23,.68);
-      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(224,204,255,.12);
+      background: rgba(18,8,37,.66);
+      backdrop-filter: blur(20px);
     }
 
     .nav {
@@ -166,9 +167,9 @@
       place-items: center;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: linear-gradient(135deg, var(--teal), var(--blue));
-      color: #071014;
-      box-shadow: 0 12px 30px rgba(53,228,198,.25);
+      background: radial-gradient(circle, #f6d365, #a855f7 58%, #32145f);
+      color: #fff;
+      box-shadow: 0 12px 34px rgba(168,85,247,.35);
     }
 
     .menu {
@@ -215,13 +216,13 @@
     .hero::before {
       content: "";
       position: absolute;
-      inset: auto 0 -1px;
-      height: 42%;
+      inset: 8% 0 auto;
+      height: 56%;
       pointer-events: none;
       background:
-        linear-gradient(145deg, transparent 0 42%, rgba(20,86,78,.88) 42% 62%, transparent 62%),
-        linear-gradient(215deg, transparent 0 38%, rgba(14,58,61,.88) 38% 58%, transparent 58%);
-      opacity: .48;
+        radial-gradient(circle at 50% 50%, rgba(168,85,247,.16), transparent 38%),
+        linear-gradient(90deg, transparent, rgba(224,204,255,.12), transparent);
+      opacity: .75;
       animation: mountainDrift 12s ease-in-out infinite alternate;
     }
 
@@ -248,7 +249,7 @@
       height: 150px;
       right: 8%;
       top: -34px;
-      border: 1px solid rgba(53,228,198,.28);
+      border: 1px solid rgba(168,85,247,.36);
       border-radius: 50%;
       background:
         linear-gradient(90deg, transparent 49%, rgba(255,255,255,.14) 50%, transparent 51%),
@@ -290,7 +291,7 @@
 
     .gradient-text {
       color: transparent;
-      background: linear-gradient(100deg, var(--teal), var(--amber) 44%, var(--coral));
+      background: linear-gradient(100deg, #fff, var(--violet) 32%, var(--coral) 62%, var(--blue));
       -webkit-background-clip: text;
       background-clip: text;
     }
@@ -314,9 +315,11 @@
       overflow: hidden;
       opacity: .86;
       background:
-        linear-gradient(180deg, rgba(103,183,255,.24), rgba(53,228,198,.08) 48%, rgba(7,21,19,.12)),
-        radial-gradient(circle at 18% 24%, rgba(255,206,92,.36), transparent 18%);
-      box-shadow: 0 22px 90px rgba(0,0,0,.28);
+        radial-gradient(circle at 50% 52%, rgba(246,211,101,.95) 0 14%, rgba(168,85,247,.42) 15% 20%, transparent 21%),
+        radial-gradient(circle at 18% 24%, rgba(86,244,255,.30), transparent 16%),
+        radial-gradient(circle at 78% 26%, rgba(255,110,199,.24), transparent 18%),
+        linear-gradient(180deg, rgba(42,13,76,.86), rgba(15,8,30,.72));
+      box-shadow: 0 22px 90px rgba(92,38,193,.30);
       transform: perspective(900px) rotateY(-10deg) rotateX(4deg);
       pointer-events: none;
     }
@@ -325,33 +328,31 @@
     .nature-scene::after {
       content: "";
       position: absolute;
-      inset: auto -12% 0;
-      height: 62%;
+      inset: 28px;
+      height: auto;
+      border: 1px solid rgba(224,204,255,.28);
+      border-radius: 50%;
       background:
-        linear-gradient(135deg, transparent 0 34%, rgba(27,102,88,.94) 34% 54%, transparent 54%),
-        linear-gradient(225deg, transparent 0 38%, rgba(18,73,78,.94) 38% 59%, transparent 59%);
-      animation: parallaxRange 7s ease-in-out infinite alternate;
+        conic-gradient(from 0deg, transparent 0 18%, rgba(86,244,255,.72) 19% 21%, transparent 22% 48%, rgba(255,110,199,.66) 49% 51%, transparent 52%);
+      animation: orbitSpin 9s linear infinite;
     }
 
     .nature-scene::after {
-      inset: auto 18% 0 auto;
-      width: 84px;
-      height: 155px;
+      inset: 58px;
+      width: auto;
+      height: auto;
       background:
-        linear-gradient(180deg, rgba(217,255,245,.92), rgba(103,183,255,.28) 62%, transparent),
-        repeating-linear-gradient(180deg, rgba(255,255,255,.32) 0 8px, transparent 8px 15px);
-      border-radius: 44% 44% 12px 12px;
-      filter: blur(.2px);
-      animation: waterfall 1.2s linear infinite;
+        conic-gradient(from 90deg, transparent 0 22%, rgba(246,211,101,.68) 23% 25%, transparent 26% 60%, rgba(86,244,255,.52) 61% 63%, transparent 64%);
+      animation: orbitSpin 6.4s linear infinite reverse;
     }
 
     .mist {
       position: absolute;
       left: -20%;
       right: -20%;
-      bottom: 18px;
+      bottom: 22px;
       height: 28px;
-      background: radial-gradient(ellipse at center, rgba(217,255,245,.58), transparent 68%);
+      background: radial-gradient(ellipse at center, rgba(224,204,255,.5), transparent 68%);
       filter: blur(10px);
       animation: mistFlow 4s ease-in-out infinite alternate;
     }
@@ -373,8 +374,8 @@
       to { transform: translateX(8px); }
     }
 
-    @keyframes waterfall {
-      to { background-position: 0 42px, 0 42px; }
+    @keyframes orbitSpin {
+      to { transform: rotate(360deg); }
     }
 
     @keyframes mistFlow {
@@ -627,6 +628,106 @@
       color: #dbe5ee;
       font-size: 14px;
       font-weight: 700;
+    }
+
+    .skills-stage {
+      position: relative;
+      min-height: 560px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background:
+        radial-gradient(circle at 50% 50%, rgba(246,211,101,.12), transparent 18%),
+        radial-gradient(circle at 50% 50%, rgba(168,85,247,.18), transparent 42%),
+        linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.025));
+      box-shadow: 0 28px 90px rgba(0,0,0,.24);
+      perspective: 1000px;
+    }
+
+    .skills-stage::before {
+      content: "";
+      position: absolute;
+      inset: 56px;
+      border-radius: 50%;
+      border: 1px solid rgba(224,204,255,.16);
+      box-shadow:
+        0 0 0 70px rgba(224,204,255,.045),
+        0 0 0 138px rgba(224,204,255,.026);
+      animation: orbitPulse 4s ease-in-out infinite alternate;
+    }
+
+    .skills-sun {
+      position: relative;
+      z-index: 3;
+      width: 180px;
+      height: 180px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #1c0d2e;
+      text-align: center;
+      font-weight: 900;
+      line-height: 1.1;
+      background:
+        radial-gradient(circle at 34% 28%, #fff6c9, #f6d365 34%, #a855f7 72%, #3b1471);
+      box-shadow:
+        0 0 34px rgba(246,211,101,.56),
+        0 0 96px rgba(168,85,247,.42),
+        inset 0 0 26px rgba(255,255,255,.45);
+      animation: sunFloat 3.8s ease-in-out infinite;
+    }
+
+    .skills-orbit {
+      position: absolute;
+      inset: 74px;
+      border: 1px dashed rgba(224,204,255,.22);
+      border-radius: 50%;
+      animation: orbitSpin 22s linear infinite;
+      transform-style: preserve-3d;
+    }
+
+    .skills-orbit:nth-of-type(3) { inset: 120px; animation-duration: 16s; animation-direction: reverse; }
+
+    .skill-planet {
+      --angle: 0deg;
+      --radius: 210px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      min-width: 92px;
+      min-height: 42px;
+      display: grid;
+      place-items: center;
+      padding: 0 14px;
+      border: 1px solid rgba(224,204,255,.24);
+      border-radius: 999px;
+      background: rgba(25,12,49,.86);
+      color: var(--mist);
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: .02em;
+      box-shadow: 0 14px 34px rgba(0,0,0,.28), 0 0 24px rgba(168,85,247,.24);
+      transform: translate(-50%, -50%) rotate(var(--angle)) translateX(var(--radius)) rotate(calc(-1 * var(--angle)));
+      transition: transform .25s ease, background .25s ease, border-color .25s ease;
+    }
+
+    .skill-planet:hover {
+      background: rgba(168,85,247,.92);
+      border-color: rgba(246,211,101,.72);
+    }
+
+    .skills-stage:hover .skills-orbit { animation-play-state: paused; }
+
+    @keyframes orbitPulse {
+      from { transform: scale(.98); opacity: .6; }
+      to { transform: scale(1.03); opacity: 1; }
+    }
+
+    @keyframes sunFloat {
+      0%, 100% { transform: translateY(0) rotateZ(-1deg); }
+      50% { transform: translateY(-12px) rotateZ(1deg); }
     }
 
     .timeline {
@@ -988,6 +1089,8 @@
       .projects-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .cert-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .timeline { grid-template-columns: 1fr; }
+      .skills-stage { min-height: 500px; }
+      .skill-planet { --radius: 165px; }
       .section-head { align-items: start; flex-direction: column; }
     }
 
@@ -1017,6 +1120,10 @@
       .icon-link { flex: 1; }
       .projects-grid, .cert-grid { grid-template-columns: 1fr; }
       .hero-stats { grid-template-columns: 1fr; }
+      .skills-stage { min-height: auto; display: flex; flex-direction: column; gap: 12px; padding: 26px; }
+      .skills-stage::before, .skills-orbit { display: none; }
+      .skills-sun { width: 150px; height: 150px; margin-bottom: 12px; }
+      .skill-planet { position: static; transform: none; width: 100%; animation: none; }
       section { padding: 76px 0; }
     }
 
@@ -1043,6 +1150,7 @@
       <ul class="menu" id="menu">
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
         <li><a href="#education">Education</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#certificates">Certificates</a></li>
@@ -1064,9 +1172,9 @@
       </div>
       <div class="container hero-grid">
         <div class="hero-text reveal">
-          <span class="eyebrow">Frontend Developer</span>
-          <h1>Building clean, responsive <span class="gradient-text">web experiences</span>.</h1>
-          <p class="hero-copy">I am Gunaseelan V, an Electronics and Communication Engineering student focused on frontend development, interactive UI, and practical web projects that feel smooth on every screen.</p>
+          <span class="eyebrow">Hello! I Am Gunaseelan V</span>
+          <h1>A developer who judges a project by its <span class="gradient-text">interaction</span>.</h1>
+          <p class="hero-copy">I build responsive web experiences with animated UI, clean structure, and practical frontend logic. My portfolio brings together projects, certificates, and skills in a more polished visual system.</p>
           <div class="hero-actions">
             <a class="btn" href="#projects"><i class="fa-solid fa-layer-group"></i> View Projects</a>
             <a class="btn secondary" href="#contact"><i class="fa-solid fa-paper-plane"></i> Contact Me</a>
@@ -1115,6 +1223,28 @@
             <div class="fact"><span>Email</span><strong>gunaseelanvinothv@gmail.com</strong></div>
             <div class="fact"><span>Focus</span><strong>Frontend Development</strong></div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Skill Orbit</h2>
+          <p>A sun-like skill system inspired by the reference template, showing the core technologies I have acquired and keep improving.</p>
+        </div>
+        <div class="skills-stage reveal" aria-label="Skill orbit">
+          <div class="skills-sun">Core<br>Skills</div>
+          <div class="skills-orbit" aria-hidden="true"></div>
+          <div class="skills-orbit" aria-hidden="true"></div>
+          <span class="skill-planet" style="--angle: 0deg;">HTML</span>
+          <span class="skill-planet" style="--angle: 45deg;">CSS</span>
+          <span class="skill-planet" style="--angle: 90deg;">JavaScript</span>
+          <span class="skill-planet" style="--angle: 135deg;">Java</span>
+          <span class="skill-planet" style="--angle: 180deg;">MySQL</span>
+          <span class="skill-planet" style="--angle: 225deg;">MongoDB</span>
+          <span class="skill-planet" style="--angle: 270deg;">Node.js</span>
+          <span class="skill-planet" style="--angle: 315deg;">React</span>
         </div>
       </div>
     </section>
