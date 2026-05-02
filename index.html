@@ -264,6 +264,21 @@
       letter-spacing: 0;
     }
 
+    .typewriter-heading {
+      display: inline;
+      min-height: 1.1em;
+    }
+
+    .typewriter-heading.typing::after {
+      content: "";
+      display: inline-block;
+      height: .9em;
+      margin-left: 4px;
+      border-right: 2px solid var(--amber);
+      vertical-align: -0.08em;
+      animation: caretBlink .7s step-end infinite;
+    }
+
     .gradient-text {
       color: transparent;
       background: linear-gradient(100deg, #fff, var(--violet) 32%, var(--coral) 62%, var(--blue));
@@ -1333,6 +1348,41 @@
       menuToggle.setAttribute('aria-expanded', 'false');
       menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
     }));
+
+    const headingTargets = [...document.querySelectorAll('h1, h2, h3')]
+      .filter(heading => heading.id !== 'modalTitle');
+    headingTargets.forEach(heading => heading.classList.add('typewriter-heading'));
+
+    function typeHeading(heading) {
+      if (heading.dataset.typed === 'true') return;
+      const text = heading.dataset.fullText || heading.textContent.trim();
+      heading.dataset.fullText = text;
+      heading.dataset.typed = 'true';
+      heading.textContent = '';
+      heading.classList.add('typing');
+
+      let index = 0;
+      const speed = Math.max(18, Math.min(42, 900 / Math.max(text.length, 1)));
+      const timer = window.setInterval(() => {
+        heading.textContent = text.slice(0, index + 1);
+        index += 1;
+        if (index >= text.length) {
+          window.clearInterval(timer);
+          heading.classList.remove('typing');
+        }
+      }, speed);
+    }
+
+    const headingObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          typeHeading(entry.target);
+          headingObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.45 });
+
+    headingTargets.forEach(heading => headingObserver.observe(heading));
 
     const revealObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
