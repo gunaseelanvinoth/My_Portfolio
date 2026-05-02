@@ -236,6 +236,20 @@
       letter-spacing: .12em;
     }
 
+    .hero-typing {
+      display: inline-block;
+      width: 25ch;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid var(--amber);
+      animation: heroTyping 4s steps(25) infinite alternate, caretBlink .7s step-end infinite;
+    }
+
+    @keyframes heroTyping {
+      from { width: 0; }
+      to { width: 25ch; }
+    }
+
     .eyebrow::before {
       content: "";
       width: 38px;
@@ -1029,7 +1043,7 @@
     <section class="hero" id="home">
       <div class="container hero-grid">
         <div class="hero-text reveal">
-          <span class="eyebrow">Hello! I Am Gunaseelan V</span>
+          <span class="eyebrow"><span class="hero-typing">Hello! I Am Gunaseelan V</span></span>
           <h1>A developer who judges a project by its <span class="gradient-text">interaction</span>.</h1>
           <p class="hero-copy">I build responsive web experiences with animated UI, clean structure, and practical frontend logic. My portfolio brings together projects, certificates, and skills in a more polished visual system.</p>
           <div class="hero-actions">
