@@ -1,21 +1,10 @@
 {
-  "name": "gunaseelan-portfolio",
+  "name": "gunaseelan-v-hardware-portfolio",
   "version": "1.0.0",
-  "description": "Portfolio website for Gunaseelan V",
-  "main": "server.js",
+  "private": true,
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js"
+    "start": "npx serve .",
+    "build": "echo Static portfolio ready"
   },
-  "keywords": ["portfolio", "nodejs", "express"],
-  "author": "Gunaseelan V",
-  "license": "MIT",
-  "dependencies": {
-    "express": "^4.18.2",
-    "cors": "^2.8.5"
-  },
-  "engines": {
-    "node": ">=18.x"
-  }
+  "devDependencies": {}
 }
-
